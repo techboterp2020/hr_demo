@@ -1,0 +1,6 @@
+"id","name","model_id:id","group_id:id","perm_read","perm_write","perm_create","perm_unlink"
+settlement_type_user,settlement_type_name,model_settlement_type,,1,1,1,1
+settlement_type_line_user,settlement_type_line_name,model_settlement_type_line,,1,1,1,1
+
+hr_settlement_user,hr_settlement_name,model_hr_settlement,,1,1,1,1
+gratuity_lines_user,gratuity_lines_name,model_gratuity_lines,,1,1,1,1

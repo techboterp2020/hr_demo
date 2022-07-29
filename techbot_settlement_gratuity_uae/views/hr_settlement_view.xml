@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="hr_settlement_tree" model="ir.ui.view">
+            <field name="name">hr.settlement.tree</field>
+            <field name="model">hr.settlement</field>
+            <field name="arch" type="xml">
+                <tree string="Employee Gratuity">
+                    <field name ="name"/>
+                    <field name ="employee_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="hr_settlement_form" model="ir.ui.view">
+            <field name="name">hr.settlement.form</field>
+            <field name="model">hr.settlement</field>
+            <field name="arch" type="xml">
+                <form string="Employee Gratuity">
+                    <header>
+                        <button name="generate" type="object" string="Generate" class="oe_highlight" states="draft"/>
+                        <button name="generate_gratuity_amount" type="object" string="Generate Gratuity" class="oe_highlight" states="generate"/>
+                        <button name="action_create_journal_entry" type="object" string="Create Draft Entry" class="oe_highlight" states="gratuity_values"/>
+                        <button name="action_paid" type="object" string="Mark as paid" class="oe_highlight" states="validate" />
+                        <field name="state" widget="statusbar"  statusbar_visible="draft,generate,gratuity_values,validate,paid" />
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" readonly="1"/>
+                            </h1>
+                        </div>
+
+                        <group>
+
+                            <group>
+                                <field name ="employee_id"  string="Employee" required="True" />
+                                <field name="settlement_type_id"/>
+                                <field name="join_date"/>
+                                <field name="last_date"/>
+                                <field name="basic_salary"/>
+                            </group>
+                            <group>
+                                <field name="department_id" force_save="1"/>
+                                <field name="job_id" force_save="1"/>
+                                <field name="reason"/>
+                                <field name="contract_type"/>
+                            </group>
+                            <!--                                    <group>-->
+                            <!--                                        <field name="last_month_salary"  states="validate,approve" attrs="{'readonly': [('state','=','approve')]}"/>-->
+                            <!--                                        <field name="gratuity_amount"  states="approve" readonly="True"/>-->
+                            <!--                                    </group>-->
+
+                        </group>
+                        <notebook>
+                            <page name="details" string="Details">
+                                <group>
+                                    <group>
+                                        <field name="gratuity_amount" force_save="1" string="Gratuity"/>
+                                        <field name="eligible_leave_salary" string="Paid Leave Salary"/>
+                                        <field name="total_gratuity_amount" force_save="1"/>
+                                    </group>
+                                </group>
+                            </page>
+
+                            <page string="Gratuity" name="gratuity">
+                                <field name="gratuity_lines">
+                                    <tree editable="bottom" create="0">
+                                        <field name="slab"/>
+                                        <field name="date_from"/>
+                                        <field name="date_to"/>
+                                        <field name="no_of_days" required="1"/>
+                                        <field name="total_exp" invisible="1"/>
+                                        <field name="years_of_service"/>
+                                        <field name="gratuity_fraction"/>
+                                        <field name="termination_amount"/>
+                                        <field name="resign_amount"/>
+                                        <field name="settlement_grat_id" invisible="1"/>
+                                    </tree>
+                                </field>
+                                <strong class="float-right text-right">
+                                     <field name="gratuity_amount" />
+                                </strong>
+
+
+                            </page>
+
+                            <page name="leave_salary" string="Leave Salary">
+                                <group>
+                                    <field name="leave_type_id"/>
+                                    <field name="balance_leaves" force_save="1"/>
+                                    <field name="per_day_salary" force_save="1"/>
+                                    <field name="eligible_leave_salary" force_save="1"/>
+                                </group>
+                            </page>
+                        </notebook>
+
+                    </sheet>
+                    <!--                    <div class="oe_chatter">-->
+                    <!--                        <field name="message_follower_ids" widget="mail_followers" />-->
+                    <!--                        <field name="activity_ids" widget="mail_activity" />-->
+                    <!--                        <field name="message_ids" widget="mail_thread" />-->
+                    <!--                    </div>-->
+                </form>
+            </field>
+        </record>
+
+
+
+        <record id="action_employee_settlement" model="ir.actions.act_window">
+            <field name="name">Gratuity Settlement</field>
+            <field name="res_model">hr.settlement</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+
+        <menuitem id="employee_gratuity" name="Employee Settlement" parent="hr_work_entry_contract_enterprise.menu_hr_payroll_root"
+                  sequence="21" groups="hr.group_hr_manager"/>
+        <menuitem id="gratuity_creation" name="Gratuity" parent="employee_gratuity"
+                  action="action_employee_settlement"  sequence="1"/>
+
+
+
+    </data>
+</odoo>

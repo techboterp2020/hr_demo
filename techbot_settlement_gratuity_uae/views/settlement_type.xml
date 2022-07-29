@@ -31,14 +31,24 @@
                         <field name="remarks"/>
                   </group>
 
-                   <field name="settlement_type_master_line">
-                        <tree editable="top">
+<!--                   <field name="settlement_type_master_line">-->
+<!--                        <tree editable="top">-->
 
-                            <field name="account_id"/>
+<!--                            <field name="account_id"/>-->
 
-                        </tree>
+<!--                        </tree>-->
 
-                    </field>
+<!--                    </field>-->
+                    <notebook>
+                       <page name="account" string="Accounting">
+                                <group>
+                                    <group>
+                                        <field name="account_debit"  string="Debit Account"/>
+                                        <field name="account_credit" string="Credit Account"/>
+                                    </group>
+                                </group>
+                            </page>
+                    </notebook>
 		       </sheet>
 		    </form>
 		  </field>
@@ -56,7 +66,7 @@
         </field>
     </record>
 
-    <menuitem id="menu_od_final_settlement_type_master" name="Settlement Type" action="action_final_settlement_type_master" parent="hr_work_entry_contract_enterprise.menu_hr_payroll_configuration" sequence="38"/>
+    <menuitem id="menu_od_final_settlement_type_master" name="Settlement Type" action="action_settlement_type" parent="hr_work_entry_contract_enterprise.menu_hr_payroll_configuration" sequence="38"/>
 
 
  </data>
